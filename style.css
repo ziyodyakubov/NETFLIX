@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
     font-family: sans-serif;
     box-sizing: border-box;
     margin: 0;
@@ -20,7 +20,6 @@
 
 .card .card-body {
     padding: 16px;
-    height: 320px;
 }
 
 .card img {
@@ -30,8 +29,12 @@
     width: 100%;
 }
 
+.card strong {
+    font-size: 17px;
+}
+
 .card h2 {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
 }
 
@@ -49,4 +52,10 @@
 .card .btn-wrappeer {
     height: 120px;
     align-items: center;
+}
+
+
+.dark-mode{
+    background-color: #000 !important;
+    color:#fff !important;
 }

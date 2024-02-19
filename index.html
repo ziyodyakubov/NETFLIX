@@ -9,9 +9,6 @@
     <!-- FAVICON LINK -->
     <link rel="icon" href="https://www.svgrepo.com/show/303341/netflix-1-logo.svg">
 
-    <!-- TAILWINDCSS LINK -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="./style.css" />
 
@@ -20,7 +17,7 @@
     <title>Netflix</title>
 </head>
 
-<body>
+<body class="just">
     <!-- HEADER SECTION STARTED -->
     <header class="bg-white border-b-2 fixed z-[99999] top-0 w-full">
         <div class="container-fluid px-4">
@@ -29,12 +26,12 @@
                     <img src="https://images.ctfassets.net/y2ske730sjqp/6bhPChRFLRxc17sR8jgKbe/6fa1c6e6f37acdc97ff635cf16ba6fb3/Logos-Readability-Netflix-logo.png"
                         alt="logo" class="w-[160px] hover:scale-[120%] duration-300"></a>
                 <form action="#">
-                    <input type="search" placeholder="Enter movie name" class="w-[320px] rounded-md md:w-[520px] h-[50px] px-4
+                    <input type="search" placeholder="Enter movie name" class="searchBtn w-[320px] rounded-md md:w-[520px] h-[50px] px-4
                         border focus:outline-none duration-150 focus:ring-red-600 ring-2 ring-red-100">
                 </form>
                 <ul class="flex items-center gap-x-4">
                     <li>
-                        <button
+                        <button id="switch"
                             class="grid place-content-center hover:bg-black hover:text-white duration-500 p-4 border w-12 h-12 rounded-full">
                             <i class="bi bi-moon-stars-fill"></i>
                         </button>
@@ -51,6 +48,14 @@
     </header>
     <!-- HEADER SECTION ENDED -->
 
+    <!-- SEARCH PROCESSING STARTED -->
+
+    <div class="search overflow-x-hidden p-[20px] w-[520px] h-[500px] bg-[#faf4f4] hidden absolute left-[720px] z-10 rounded-[12px] top-[95px] border-[1px] border-[#00000027]">
+
+    </div>
+
+    <!-- SEARCH PROCESSING ENDED -->
+
     <!-- MAIN SECTION STARTED -->
     <main class="flex py-[90px] min-h-screen">
         <!-- ASIDE SECTION STARTED -->
@@ -58,8 +63,9 @@
             <form action="#">
                 <label for="name" class="my-6 block">
                     <p class="text-gray-500 mb-2">Enter film title:</p>
-                    <input id="name" type="search" placeholder="Enter film title.." class="w-full border-red-500 border rounded-md
-                        h-[40px] px-3 focus:outline-none duration-150 focus:ring-red-600 ring-2 ring- red-100" />
+                    <input id="name" type="search" placeholder="Enter film title.."
+                        class="name w-full border-red-500 border rounded-md
+                        h-[40px] px-3 focus:outline-none duration-150 focus:ring-red-600 ring-2 ring- red-100 bg-[#fff]" />
                 </label>
                 <label for="category" class="my-6 block">
                     <p class="text-gray-500 mb-2">Select film category:</p>
@@ -72,7 +78,7 @@
                 </label>
                 <label for="rating" class="my-6 block">
                     <p class="text-gray-500 mb-2">Select film rating:</p>
-                    <input id="name" type="number" max="10" min="1" placeholder="Enter film title..." class="w-full border-red-500 border rounded-md h-[40px]
+                    <input id="name" type="number" max="10" min="1" placeholder="Enter film title..." class="name-2 w-full border-red-500 border rounded-md h-[40px]
                     px-3 focus:outline-none duration-150 focus:ring-red-600 ring-2 ring-
                     red-100" />
                 </label>
@@ -89,6 +95,9 @@
         <!-- SECTION-1 STARTED -->
         <section id="movies" class="grow ml-[320px] p-8">
             <div class="grid sm:grid-cols-2 grid-cols-1 md:grid-cols-4 movies gap-y4"></div>
+            <div class="cardWrapper flex items-center justify-between gap-6 flex-wrap">
+
+            </div>
             <!-- dynamic render -->
             </div>
         </section>
@@ -113,5 +122,8 @@
 
 <!-- INDEX JS -->
 <script src="./index.js"></script>
+
+<!-- TAILWINDCSS LINK -->
+<script src="https://cdn.tailwindcss.com"></script>
 
 </html>
