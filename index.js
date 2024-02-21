@@ -1,22 +1,27 @@
 "use strict";
-movies.splice(100);
+movies.splice(70);
 
 let category = [];
 let categoryOption = $('#category');
+let filmname = $('#name')
+let filmrating = $('#rating')
 let cardWrapper = $('.cardWrapper');
 let searchWrapper = $('.search');
 let searchBtn = $('.searchBtn');
+let loader = $('.loader');
+let formAside = $('#formAside');
 
 
 
 // NORMALIZE DATA STARTED
+
 const allMovies = movies.map((el)=>{
         return{
         title:el.title,
         year:el.year,
         category:el.categories,
         id:el.imdbId,
-        reting:`${Math.trunc(el.runtime/60)}:${Math.trunc(el.runtime%60)}:${Math.trunc(el.runtime/100)}`,
+        rating:`${Math.trunc(el.runtime/60)}:${Math.trunc(el.runtime%60)}:${Math.trunc(el.runtime/100)}`,
         time: el.runtime,
         language:el.language,
         youtube:`https://www.youtube.com/embed/${el.youtubeId}`,
@@ -27,6 +32,7 @@ const allMovies = movies.map((el)=>{
     }
 })
 console.log(allMovies);
+
 // NORMALIZE DATA ENDED
 
 
@@ -34,10 +40,8 @@ console.log(allMovies);
 
 
 
-
-
-
 // GET CATEGORY STARTED
+
 function getCategory(moviesList){
     if (moviesList.length) {
         moviesList.forEach((el) => {
@@ -53,17 +57,15 @@ function getCategory(moviesList){
 }
 
 getCategory(allMovies);
+
 // GET CATEGORY ENDED
 
 
 
 
 
-
-
-
-
 // RENDER DATA STARTED
+
 function render(data){
 if(data.length){
     data.sort().forEach((el)=>{
@@ -75,19 +77,13 @@ if(data.length){
     })
 }
 }
+
 // RENDER DATA ENDED
 
 
 
-
-
-
-
-
-
-
-
 // CREATA A CARD WITH DATA STARTED
+
 function renderMovies(moviesList){
     if(moviesList.length){
         moviesList.forEach((el)=>{
@@ -126,67 +122,42 @@ function renderMovies(moviesList){
 }
 
 renderMovies(allMovies)
+
 // CREATA A CARD WITH DATA ENDED
 
 
 
 
-
-
-
-
-
-
 // SEARCH PROCESSING STARTED
-searchBtn.addEventListener('input',function(e){
-    searchWrapper.classList.toggle('hidden');
 
-        if (searchWrapper.classList[5] !== "hidden") {
-        searchWrapper.style.display = 'flex';
-        searchWrapper.style = 'flex-col';
-        searchWrapper.style = 'gap-[102px]';
+function SearchMovies(searchTerm){
+    const SearchResult = allMovies.filter((el)=> el.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    cardWrapper.innerHTML = '';
+    console.log(SearchResult);
+
+    if(SearchResult.length){
+        renderMovies(SearchResult);
+    }else{
+        cardWrapper.innerHTML = '<h1 class="found">NOT FOUND</h1>'
     }
-})
-
-searchBtn.addEventListener("input", function (e) {
-    let searchStr = e.target.value;
-    let searched = allMovies.filter(el => {
-        return el.title.toLowerCase().includes(searchStr.toLowerCase())
-    })
-
-    if(searchStr == ""){
-        searchWrapper.style.display = "hidden";
-    }
-
-    RenderData2(searched)
-})
-
-
-
-function RenderData2(data) {
-    searchWrapper.innerHTML = ''
-    data.forEach(el => {
-        let searchTitle = document.createElement('li')
-        searchTitle.classList.add("list-none")
-        searchTitle.classList.add("text-[#666]")
-        searchTitle.classList.add("pt-[10px]")
-        searchTitle.classList.add("cursor-pointer")
-        searchTitle.textContent = el.title;
-        searchWrapper.appendChild(searchTitle);
-    })
-
 
 }
+
+searchBtn.addEventListener('keyup',(e)=>{
+    cardWrapper.innerHTML ='<h1 class="text-center relative left-[600px] text-red-700 font-[1000] text-2xl">LOADING...</h1>';
+    setTimeout(()=>{
+        SearchMovies(e.target.value)
+    },500)
+})
+
 // SEARCH PROCESSING ENDED
 
 
 
 
 
-
-
-
 // DARK-MODE STARTED
+
 let switchBtn = $('#switch');
 let body2 = $('body');
 let header2 = $('header');
@@ -197,8 +168,7 @@ let options = $('option');
 let names = $('.name');
 let names2 = $('.name-2');
 
-
-switchBtn.addEventListener('click',function(e){
+function darkmode(){
     body2.classList.toggle('dark-mode');
     header2.classList.toggle('dark-mode');
     aside2.classList.toggle('dark-mode');
@@ -208,5 +178,46 @@ switchBtn.addEventListener('click',function(e){
     names.classList.toggle('dark-mode');
     names2.classList.toggle('dark-mode');
     searchWrapper.classList.toggle('dark-mode');
+}
+
+switchBtn.addEventListener('click',()=>{
+    darkmode()
 })
+
 // DARK-MODE ENDED
+
+
+
+
+
+// MULTI SEARCH STARTED
+
+function multiSearch(){
+    let filmName = filmname.value;
+    let filmRating = filmrating.value;
+    let filmCategory = categoryOption.value;
+    console.log(filmName);
+
+
+    const SearchResult = allMovies.filter((el)=> {
+        return el.title.toLowerCase().includes(filmName.toLowerCase()) && el.category.includes(filmCategory) && el.rating >= filmRating
+})
+    cardWrapper.innerHTML = '';
+    console.log(SearchResult);
+
+    if(SearchResult.length){
+        renderMovies(SearchResult);
+    }else{
+        cardWrapper.innerHTML = '<h1 class="found">NOT FOUND</h1>'
+    }
+}
+
+formAside.addEventListener('submit',(e)=>{
+    cardWrapper.innerHTML ='<h1 class="text-center relative left-[600px] text-red-700 font-[1000] text-2xl">LOADING...</h1>';
+    e.preventDefault()
+    setTimeout(()=>{
+        multiSearch()
+    },500)
+})
+
+// MULTI SEARCH ENDED
