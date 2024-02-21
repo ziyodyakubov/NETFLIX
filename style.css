@@ -100,12 +100,32 @@
     align-items: center;
     background-color: rgb(12, 205, 12);
     padding: 0 20px;
+    color:#fff;
 }
 
 .show {
     transform: translateX(0);
+    animation-name: toasterAnimation;
+    animation-duration: 0.7s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+    animation-direction: inherit;
 }
 
 .hide {
     transform: translateX(400%);
+}
+
+@keyframes toasterAnimation {
+    0% {
+        transform: translateX(100%);
+        background: rgb(18, 52, 8);
+        background: linear-gradient(90deg, rgba(18, 52, 8, 1) 0%, rgba(20, 80, 7, 1) 0%, rgba(31, 255, 0, 1) 58%, rgba(25, 163, 4, 1) 100%);
+    }
+
+    100% {
+        transform: translateX(0%);
+        background: rgb(18, 52, 8);
+        background: linear-gradient(128deg, rgba(18, 52, 8, 1) 0%, rgba(20, 80, 7, 1) 0%, rgba(31, 255, 0, 1) 58%, rgba(25, 163, 4, 1) 100%);
+    }
 }

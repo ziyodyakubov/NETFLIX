@@ -10,6 +10,8 @@ let searchWrapper = $('.search');
 let searchBtn = $('.searchBtn');
 let loader = $('.loader');
 let formAside = $('#formAside');
+let toast = $('.toaster')
+let toastText = $('.toaster-text')
 
 
 
@@ -103,8 +105,8 @@ function renderMovies(moviesList){
                    
                     <button 
                         data-like=${el.id}
-                        class="grid hover:bg-red-700 hover:text-white duration-500 text-red-700 place-content-center p-4 border w-12 h-12 rounded-full">
-                        <i class="bi bi-suit-heart-fill "></i>
+                        class="grid hover:bg-red-700 like hover:text-white duration-500 text-red-700 place-content-center p-4 border w-12 h-12 rounded-full">
+                        <i data-like=${el.id} class="bi like bi-suit-heart-fill "></i>
                     </button>
 
                     <a href="${el.youtube}" target="_blank" class="flex hover:bg-black hover:text-white duration-500  justify-center gap-x-2 text-xl items-center border min-w-24 px-3 h-12 rounded-full"> 
@@ -221,3 +223,34 @@ formAside.addEventListener('submit',(e)=>{
 })
 
 // MULTI SEARCH ENDED
+
+
+
+
+
+// TOASTER STARTED
+
+cardWrapper.addEventListener('click',(e)=>{
+    if(e.target.classList.contains('like')){
+        let id = e.target.getAttribute('data-like');
+        console.log(id);
+        console.log(e.target);
+        let film = allMovies.filter(el => el.id === id)[0].title;
+        toastShow('success',`This ${film.length > 6 ? film.substring(0,7)+'...' : film } film added`,2000)
+    }
+})
+
+
+function toastShow(type,message,time){
+    toastText.innerHTML = message
+    if(type == "success"){
+        toast.classList.remove('hide');
+        toast.classList.add('show');
+        setTimeout(()=>{
+            toast.classList.remove('show');
+            toast.classList.add('hide')
+        },time)
+    }
+}
+
+// TOASTER ENDED
